@@ -201,7 +201,7 @@ sudo apt install nasm python3 python3-pip dosbox
 pip3 install numpy
 
 # Clone and build
-git clone https://github.com/yourusername/neural8086
+git clone (https://github.com/magneato/NSX86
 cd neural8086
 chmod +x build.sh setup_mnist.sh
 ./setup_mnist.sh  # Download MNIST dataset

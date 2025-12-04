@@ -4,7 +4,7 @@
 ; "Pre-computed knowledge, like the T-800's mission parameters"
 
 ; Export symbols
-global basis_lut_256, deriv_lut_256, exp_lut_256
+global basis_lut_256, deriv_lut_256, exp_lut_256, tanh_lut_256
 
 section .data align=16
 
@@ -26,11 +26,19 @@ deriv_lut_256:
     incbin "DERIV256.LUT"
 
 ; ------------------------------
-; Exponential/Activation Lookup Table (256 bytes)
-; Approximates tanh(x) for neural activation
+; Exponential Lookup Table (512 bytes, 16-bit words)
+; For softmax: exp(-x) where x in [0, 4]
 ; ------------------------------
 exp_lut_256:
     incbin "EXP256.LUT"
+
+; ------------------------------
+; Tanh Activation Lookup Table (256 bytes, signed 8-bit)
+; Proper signed tanh for INLINE_TANH_Q88 macro
+; Index 128 = tanh(0) = 0, range [-127, +127]
+; ------------------------------
+tanh_lut_256:
+    incbin "TANH256.LUT"
 
 ; End of lookup tables
 

@@ -122,11 +122,12 @@
     add bl, 128     ; Add offset
     mov bh, 0       ; Clear high byte -> bx = index (0-255)
 
-    ; *** XLAT FIX ***
+    ; *** TANH LUT FIX ***
+    ; Use proper signed tanh table instead of exp table
     mov al, bl      ; Move index (0-255) into AL for XLAT
-    mov bx, exp_lut_256 ; Load table base address into BX
-    xlat            ; AL = DS:[BX+AL] (Standard XLAT instruction)
-    ; *** END XLAT FIX ***
+    mov bx, tanh_lut_256 ; Load tanh table base address into BX
+    xlat            ; AL = DS:[BX+AL] -> signed 8-bit tanh value
+    ; *** END TANH LUT FIX ***
 
     cbw             ; AL -> AX (Sign extend result)
     ; Scale back to Q8.8 (Unrolled)

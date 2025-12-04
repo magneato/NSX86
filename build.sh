@@ -61,7 +61,7 @@ fi
 # Generate lookup tables
 print_msg "\n[2/5] Generating lookup tables..." "$YELLOW"
 
-for script in gen_basis_lut.py gen_deriv_lut.py gen_exp_lut.py; do
+for script in gen_basis_lut.py gen_deriv_lut.py gen_exp_lut.py gen_tanh_lut.py; do
     if [[ -f "$script" ]]; then
         print_msg "  Generating via $script..." "$GREEN"
         python3 "$script"
@@ -71,7 +71,7 @@ for script in gen_basis_lut.py gen_deriv_lut.py gen_exp_lut.py; do
 done
 
 # Verify LUT files exist
-for lut in BASIS256.LUT DERIV256.LUT EXP256.LUT; do
+for lut in BASIS256.LUT DERIV256.LUT EXP256.LUT TANH256.LUT; do
     if [[ -f "$lut" ]]; then
         size=$(wc -c < "$lut")
         print_msg "  ✓ $lut ($size bytes)" "$GREEN"

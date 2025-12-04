@@ -33,6 +33,7 @@ global print_hex
 global preaccumulate_input
 %endif
 global exp_lut_256
+global tanh_lut_256         ; <-- proper signed tanh table for activation
 global lfsr_tap_word        ; <-- exported mutable PRNG tap
 
 ; ------------------------------

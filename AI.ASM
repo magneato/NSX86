@@ -76,10 +76,12 @@ grad_l3:   times (L3*2)   dw 0
 grad_out:  times (LOUT*2) dw 0
 
 ; BGD thresholds (learning step proxy)
-BGD_THRESHOLD_L1:  dw 0x0010
-BGD_THRESHOLD_L2:  dw 0x000C
-BGD_THRESHOLD_L3:  dw 0x000A
-BGD_THRESHOLD_OUT: dw 0x0004
+; Scaled by sqrt(fan_in) for stable convergence:
+;   L1: sqrt(784) ≈ 28, L2: sqrt(128) ≈ 11, L3: sqrt(64) = 8, OUT: sqrt(32) ≈ 6
+BGD_THRESHOLD_L1:  dw 0x001C  ; 28 (was 16 - too low for 784 inputs)
+BGD_THRESHOLD_L2:  dw 0x000B  ; 11 (was 12)
+BGD_THRESHOLD_L3:  dw 0x0008  ; 8  (was 10)
+BGD_THRESHOLD_OUT: dw 0x0006  ; 6  (was 4)
 
 ; Step counters (diagnostics)
 bgd_steps_l1:      dw 0
